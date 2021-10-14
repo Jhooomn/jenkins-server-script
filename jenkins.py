@@ -48,22 +48,21 @@ def install_jenkins():
 
 
 # validate if --> java is installed.
-
 is_java_installed_output = execute_bash_script("which java")
 
 if is_not_installed(is_java_installed_output):
     install_java()
-# validate if --> wget is installed.
 
+# validate if --> wget is installed.
 is_wget_installed_output = execute_bash_script("which wget")
 
 if is_not_installed(is_wget_installed_output):
     install_wget()
+
 # add gpg jenkins key
-
 execute_bash_script("wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -.")
-# add jenkins repository
 
+# add jenkins repository
 execute_bash_script(
     "sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'.")
 
@@ -72,3 +71,6 @@ add_universe_repository()
 
 # install jenkins
 install_jenkins()
+
+# show secret jenkins-admin password
+execute_bash_script("sudo less /var/lib/jenkins/secrets/initialAdminPassword")
