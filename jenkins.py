@@ -2,10 +2,13 @@ import subprocess
 
 
 def execute_bash_script(bash_command):
-    output = subprocess.check_output(['bash', '-c', bash_command])
-    if output is None or output == "":
+    try:
+        output = subprocess.check_output(['bash', '-c', bash_command])
+        if output is None or output == "":
+            return ""
+        return output
+    except:
         return ""
-    return output
 
 
 def update_package_list():
